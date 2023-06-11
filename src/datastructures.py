@@ -39,27 +39,21 @@ class FamilyStructure:
         return randint(0, 99999999)
 
     def add_member(self, member):
-        member["id"] = self._generateId()
+        if member["id"] is None: member["id"] = self._generateId()
+        member["last_name"] = self.last_name
         self._members.append(member)
+        return member
 
-    def delete_member(self, member_id):
+    def delete_member(self, id):
         for member in self._members:
-            if member["id"] == member_id:
+            if member['id'] == id:
                 self._members.remove(member)
-                break
+                return self._members
 
-    def update_member(self, member_id, member):
-        for i, m in enumerate(self._members):
-            if m["id"] == member_id:
-                self._members[i] = member
-                break
-
-    def get_member(self, member_id):
+    def get_member(self, id):
         for member in self._members:
-            if member["id"] == member_id:
+            if member["id"] == id:
                 return member
-
-        return None
 
     # this method is done, it returns a list with all the family members
     def get_all_members(self):
